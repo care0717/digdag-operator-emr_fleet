@@ -64,6 +64,7 @@ class EmrFleetCreateClusterOperator(operatorName: String, context: OperatorConte
   protected val logUri: Optional[String] = params.getOptional("log_uri", classOf[String])
   protected val additionalInfo: Optional[String] = params.getOptional("additional_info", classOf[String])
   protected val isVisible: Boolean = params.get("visible", classOf[Boolean], true)
+  protected val stepConcurrencyLevel: Int = params.get("step_concurrency_level", classOf[Int], 1)
   protected val securityConfiguration: Optional[String] = params.getOptional("security_configuration", classOf[String])
   protected val instanceProfile: String = params.get("instance_profile", classOf[String], "EMR_EC2_DefaultRole")
   protected val serviceRole: String = params.get("service_role", classOf[String], "EMR_DefaultRole")
@@ -304,6 +305,7 @@ class EmrFleetCreateClusterOperator(operatorName: String, context: OperatorConte
       .withServiceRole(serviceRole)
       .withTags(tags.toSeq.map(m => new Tag().withKey(m._1).withValue(m._2)): _*)
       .withVisibleToAllUsers(isVisible)
+      .withStepConcurrencyLevel(stepConcurrencyLevel)
       .withInstances(configureInstances)
   }
 
