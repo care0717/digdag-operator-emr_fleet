@@ -73,6 +73,7 @@ class EmrFleetCreateClusterOperator(operatorName: String, context: OperatorConte
   protected val keepAliveWhenNoSteps: Boolean = params.get("keep_alive_when_no_steps", classOf[Boolean], true)
   protected val terminationProtected: Boolean = params.get("termination_protected", classOf[Boolean], false)
   protected val waitAvailableState: Boolean = params.get("wait_available_state", classOf[Boolean], true)
+  protected val waitPollingInterval: DurationParam = params.get("wait_polling_interval", classOf[DurationParam], DurationParam.parse("5s"))
   protected val waitTimeoutDuration: DurationParam = params.get("wait_timeout_duration", classOf[DurationParam], DurationParam.parse("45m"))
 
   protected lazy val configureInstanceFleetProvisioningSpecifications: InstanceFleetProvisioningSpecifications = {
@@ -333,6 +334,7 @@ class EmrFleetCreateClusterOperator(operatorName: String, context: OperatorConte
     p.set("_type", "emr_fleet.wait_cluster")
     p.set("success_states", seqAsJavaList(Seq[ClusterState](RUNNING, WAITING)))
     p.set("error_states", seqAsJavaList(Seq[ClusterState](TERMINATED, TERMINATED_WITH_ERRORS, TERMINATING)))
+    p.set("polling_interval", waitPollingInterval.toString)
     p.set("timeout_duration", waitTimeoutDuration.toString)
 
     p.set("auth_method", authMethod)

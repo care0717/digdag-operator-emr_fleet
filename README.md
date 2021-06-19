@@ -201,6 +201,7 @@ Define the below options on properties (which is indicated by `-c`, `--config`).
 - **keep_alive_when_no_steps**: Specifies whether the cluster should remain available after completing all steps. (boolean, default: `true`)
 - **termination_protected**: Specifies whether to lock the cluster to prevent the Amazon EC2 instances from being terminated by API call, user intervention, or in the event of a job-flow error. (boolean, default: `false`)
 - **wait_available_state**: Specifies whether to wait until the cluster becomes available after created. Available state means `"RUNNING"` or `"WAITING"`. (boolean, default: `true`)
+- **wait_polling_interval**: Specify polling interval. (`DurationParam`, default: `"5s"`)
 - **wait_timeout_duration**: Specify timeout period. (`DurationParam`, default: `"45m"`)
 
 ### Output parameters
