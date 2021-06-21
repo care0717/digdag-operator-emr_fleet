@@ -1,3 +1,13 @@
+1.0.0 (2021-06-21)
+==================
+
+* [Change] Change project group
+* [Change] Change default wait pooling interval to 30s
+* [New Feature] Add step_concurrency_level option
+* [New Feature] Add allocation_strategy option to spot_spec
+* [Enhancement] Update digdag library to 0.9.42
+* [Enhancement] Update aws sdk library to 1.11.1034
+
 0.0.5 (2018-09-09)
 ==================
 

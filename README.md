@@ -18,7 +18,7 @@ _export:
     repositories:
       - https://jitpack.io
     dependencies:
-      - com.github.care0717:digdag-operator-emr_fleet:0.0.5
+      - com.github.care0717:digdag-operator-emr_fleet:1.0.0
   emr_fleet:
     auth_method: profile
 

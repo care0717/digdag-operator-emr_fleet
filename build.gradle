@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.github.care0717'
-version = '0.0.5'
+version = '1.0.0'
 
 def digdagVersion = '0.9.42'
 def awsSdkVersion = "1.11.1034"
