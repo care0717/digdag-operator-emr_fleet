@@ -1,4 +1,4 @@
-package pro.civitaspo.digdag.plugin.emr_fleet.wrapper
+package com.github.care0717.digdag.plugin.emr_fleet.wrapper
 
 import java.time.Duration
 import java.util.concurrent.Callable
