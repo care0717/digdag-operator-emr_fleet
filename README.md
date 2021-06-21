@@ -1,5 +1,7 @@
 # digdag-operator-emr_fleet
-[![Jitpack](https://jitpack.io/v/pro.civitaspo/digdag-operator-emr_fleet.svg)](https://jitpack.io/#pro.civitaspo/digdag-operator-emr_fleet) [![CircleCI](https://circleci.com/gh/civitaspo/digdag-operator-emr_fleet.svg?style=shield)](https://circleci.com/gh/civitaspo/digdag-operator-emr_fleet) [![Digdag](https://img.shields.io/badge/digdag-v0.9.27-brightgreen.svg)](https://github.com/treasure-data/digdag/releases/tag/v0.9.27)
+[![](https://jitpack.io/v/care0717/digdag-operator-emr_fleet.svg)](https://jitpack.io/#care0717/digdag-operator-emr_fleet) [![Digdag](https://img.shields.io/badge/digdag-v0.9.42-brightgreen.svg)](https://github.com/treasure-data/digdag/releases/tag/v0.9.42)
+
+**This is fork project from [civitaspo/digdag-operator-emr_fleet](https://github.com/civitaspo/digdag-operator-emr_fleet)**
 
 This operator is for operating a cluster with instance fleets on Amazon Elastic Map Reduce.
 
@@ -16,7 +18,7 @@ _export:
     repositories:
       - https://jitpack.io
     dependencies:
-      - pro.civitaspo:digdag-operator-emr_fleet:0.0.5
+      - com.github.care0717:digdag-operator-emr_fleet:1.0.0
   emr_fleet:
     auth_method: profile
 
@@ -140,6 +142,7 @@ Define the below options on properties (which is indicated by `-c`, `--config`).
   - **block_duration**: The defined duration for Spot instances (also known as Spot blocks). When specified, the Spot instance does not terminate before the defined duration expires, and defined duration pricing for Spot instances applies. Current valid values are `"1h"`, `"2h"`, `"3h"`, `"4h"`, `"5h"`, or `"6h"`. The duration period starts as soon as a Spot instance receives its instance ID. At the end of the duration, Amazon EC2 marks the Spot instance for termination and provides a Spot instance termination notice, which gives the instance a two-minute warning before it terminates. (`DurationParam`, optional)
   - **timeout_action**: The action to take when **target_spot_capacity** has not been fulfilled when the **timeout_duration** has expired. Spot instances are not uprovisioned within the Spot provisioining timeout. Valid values are `TERMINATE_CLUSTER` and `SWITCH_TO_ON_DEMAND`. `SWITCH_TO_ON_DEMAND` specifies that if no Spot instances are available, On-Demand Instances should be provisioned to fulfill any remaining Spot capacity. (string, default: `TERMINATE_CLUSTER`)
   - **timeout_duration**: The spot provisioning timeout period. If Spot instances are not provisioned within this time period, the **timeout_action** is taken. Minimum value is `"5m"` and maximum value is `"1d"`. The timeout applies only during initial provisioning, when the cluster is first created. (`DurationParam`, default: `45m`)
+  - **allocation_strategy**: The allocation strategy provisions Spot Instances. This option is available for EMR versions 5.12.1 and later, see [Docs](https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-instance-fleet.html). Valid value is only `CapacityOptimized`. (string, optional)
 - **master_fleet**: Describes the EC2 instances and instance configurations for master node that use the instance fleet configuration. (map, required)
   - **name**: The friendly name of the instance fleet. (string, default: `master instance fleet`)
   - **use_spot_instance**: Indicates whether master node uses Spot instance or On-Demand instance. (boolean, default: `true`)
@@ -183,6 +186,7 @@ Define the below options on properties (which is indicated by `-c`, `--config`).
 - **log_uri**: The location in Amazon S3 to write the log files of the job flow. If a value is not provided, logs are not created. (string, optional)
 - **additional_info**: A JSON string for selecting additional features. (string, optional)
 - **visible**: Whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this value is set to true, all IAM users of that AWS account can view and (if they have the proper policy permissions set) manage the cluster. If it is set to false, only the IAM user that created the cluster can view and manage it. (boolean, default: `true`)
+- **step_concurrency_level**: Specifies the number of steps that can be executed concurrently. This option is available for EMR versions 5.28 and later. The maximum value is 256. (integer, default: `1`)
 - **security_configuration**: The name of a security configuration to apply to the cluster. (string, optional)
 - **instance_profile**: Also called job flow role and EC2 role. An IAM role for an EMR cluster. The EC2 instances of the cluster assume this role. The default role is EMR_EC2_DefaultRole. In order to use the default role, you must have already created it using the CLI or console. (string, default: `EMR_EC2_DefaultRole`)
 - **service_role**: The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf. (string, default: `EMR_DefaultRole`)
@@ -220,7 +224,7 @@ Define the below options on properties (which is indicated by `-c`, `--config`).
 - **emr_fleet.wait_cluster>**: Specifies either the ID of an existing cluster (string, required)
 - **success_states**: The cluster states breaks polling the cluster. Valid values are `"STARTING"`, `"BOOTSTRAPPING"`, `"RUNNING"`, `"WAITING"`, `"TERMINATING"`, `"TERMINATED"` and `"TERMINATED_WITH_ERRORS"`. (array of string, required)
 - **error_states**: The cluster states breaks polling the cluster with errors. Valid values are `"STARTING"`, `"BOOTSTRAPPING"`, `"RUNNING"`, `"WAITING"`, `"TERMINATING"`, `"TERMINATED"` and `"TERMINATED_WITH_ERRORS"`. (array of string, optional)
-- **polling_interval**: Specify polling interval. (`DurationParam`, default: `"5s"`)
+- **polling_interval**: Specify polling interval. (`DurationParam`, default: `"30s"`)
 - **timeout_duration**: Specify timeout period. (`DurationParam`, default: `"45m"`)
 
 ### Output parameters
@@ -271,7 +275,7 @@ Define the below options on properties (which is indicated by `-c`, `--config`).
 
 # Note
 
-- Only emr-5.10.0 or larger releases are supported.
+- Only emr-5.28.0 or larger releases are supported.
 - There is no compatibility against [`emr>` operator](https://docs.digdag.io/operators/emr.html) because of the maintainability.
 
 # Development
@@ -313,6 +317,7 @@ aws configure
 [Apache License 2.0](./LICENSE.txt)
 
 # Author
-
+## Original Author
 @civitaspo
-
+## Others
+@care0717

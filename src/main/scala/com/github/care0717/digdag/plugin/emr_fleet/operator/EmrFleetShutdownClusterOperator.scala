@@ -1,4 +1,4 @@
-package pro.civitaspo.digdag.plugin.emr_fleet.operator
+package com.github.care0717.digdag.plugin.emr_fleet.operator
 
 import com.amazonaws.services.elasticmapreduce.model.TerminateJobFlowsRequest
 import io.digdag.client.config.Config

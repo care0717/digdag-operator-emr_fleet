@@ -1,18 +1,12 @@
-package pro.civitaspo.digdag.plugin.emr_fleet
+package com.github.care0717.digdag.plugin.emr_fleet
 
-import java.util
-import java.lang.reflect.Constructor
-
+import com.github.care0717.digdag.plugin.emr_fleet.operator._
 import io.digdag.client.config.Config
-import io.digdag.spi.{Operator, OperatorContext, OperatorFactory, OperatorProvider, Plugin, TemplateEngine}
+import io.digdag.spi._
+
+import java.lang.reflect.Constructor
+import java.util
 import javax.inject.Inject
-import pro.civitaspo.digdag.plugin.emr_fleet.operator.{
-  AbstractEmrFleetOperator,
-  EmrFleetCreateClusterOperator,
-  EmrFleetDetectClustersOperator,
-  EmrFleetShutdownClusterOperator,
-  EmrFleetWaitClusterOperator
-}
 
 object EmrFleetPlugin {
 

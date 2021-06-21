@@ -1,4 +1,4 @@
-package pro.civitaspo.digdag.plugin.emr_fleet.operator
+package com.github.care0717.digdag.plugin.emr_fleet.operator
 
 import java.net.URI
 import java.nio.charset.StandardCharsets.UTF_8
@@ -18,6 +18,7 @@ import com.amazonaws.services.elasticmapreduce.model.{
   PlacementType,
   RunJobFlowRequest,
   ScriptBootstrapActionConfig,
+  SpotProvisioningAllocationStrategy,
   SpotProvisioningSpecification,
   SpotProvisioningTimeoutAction,
   Tag,
@@ -63,6 +64,7 @@ class EmrFleetCreateClusterOperator(operatorName: String, context: OperatorConte
   protected val logUri: Optional[String] = params.getOptional("log_uri", classOf[String])
   protected val additionalInfo: Optional[String] = params.getOptional("additional_info", classOf[String])
   protected val isVisible: Boolean = params.get("visible", classOf[Boolean], true)
+  protected val stepConcurrencyLevel: Int = params.get("step_concurrency_level", classOf[Int], 1)
   protected val securityConfiguration: Optional[String] = params.getOptional("security_configuration", classOf[String])
   protected val instanceProfile: String = params.get("instance_profile", classOf[String], "EMR_EC2_DefaultRole")
   protected val serviceRole: String = params.get("service_role", classOf[String], "EMR_DefaultRole")
@@ -78,6 +80,8 @@ class EmrFleetCreateClusterOperator(operatorName: String, context: OperatorConte
     val blockDuration: Optional[DurationParam] = spotSpec.getOptional("block_duration", classOf[DurationParam])
     val timeoutAction: SpotProvisioningTimeoutAction = spotSpec.get("timeout_action", classOf[SpotProvisioningTimeoutAction], TERMINATE_CLUSTER)
     val timeoutDuration: DurationParam = spotSpec.get("timeout_duration", classOf[DurationParam], DurationParam.parse("45m"))
+    val allocationStrategy: Optional[SpotProvisioningAllocationStrategy] =
+      spotSpec.getOptional("allocation_strategy", classOf[SpotProvisioningAllocationStrategy])
 
     val s = new SpotProvisioningSpecification()
     if (blockDuration.isPresent) {
@@ -94,6 +98,9 @@ class EmrFleetCreateClusterOperator(operatorName: String, context: OperatorConte
     }
     s.setTimeoutAction(timeoutAction)
     s.setTimeoutDurationMinutes(timeoutDuration.getDuration.toMinutes.toInt)
+    if (allocationStrategy.isPresent) {
+      s.setAllocationStrategy(allocationStrategy.get())
+    }
 
     new InstanceFleetProvisioningSpecifications().withSpotSpecification(s)
   }
@@ -298,6 +305,7 @@ class EmrFleetCreateClusterOperator(operatorName: String, context: OperatorConte
       .withServiceRole(serviceRole)
       .withTags(tags.toSeq.map(m => new Tag().withKey(m._1).withValue(m._2)): _*)
       .withVisibleToAllUsers(isVisible)
+      .withStepConcurrencyLevel(stepConcurrencyLevel)
       .withInstances(configureInstances)
   }
 
