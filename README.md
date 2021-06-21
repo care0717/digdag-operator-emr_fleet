@@ -222,7 +222,7 @@ Define the below options on properties (which is indicated by `-c`, `--config`).
 - **emr_fleet.wait_cluster>**: Specifies either the ID of an existing cluster (string, required)
 - **success_states**: The cluster states breaks polling the cluster. Valid values are `"STARTING"`, `"BOOTSTRAPPING"`, `"RUNNING"`, `"WAITING"`, `"TERMINATING"`, `"TERMINATED"` and `"TERMINATED_WITH_ERRORS"`. (array of string, required)
 - **error_states**: The cluster states breaks polling the cluster with errors. Valid values are `"STARTING"`, `"BOOTSTRAPPING"`, `"RUNNING"`, `"WAITING"`, `"TERMINATING"`, `"TERMINATED"` and `"TERMINATED_WITH_ERRORS"`. (array of string, optional)
-- **polling_interval**: Specify polling interval. (`DurationParam`, default: `"5s"`)
+- **polling_interval**: Specify polling interval. (`DurationParam`, default: `"30s"`)
 - **timeout_duration**: Specify timeout period. (`DurationParam`, default: `"45m"`)
 
 ### Output parameters

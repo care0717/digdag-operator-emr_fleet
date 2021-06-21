@@ -23,7 +23,7 @@ class EmrFleetWaitClusterOperator(operatorName: String, context: OperatorContext
   protected val clusterId: String = params.get("_command", classOf[String])
   protected val successStates: Seq[ClusterState] = params.getList("success_states", classOf[ClusterState]).asScala
   protected val errorStates: Seq[ClusterState] = params.getListOrEmpty("error_states", classOf[ClusterState]).asScala
-  protected val pollingInterval: DurationParam = params.get("polling_interval", classOf[DurationParam], DurationParam.parse("5s"))
+  protected val pollingInterval: DurationParam = params.get("polling_interval", classOf[DurationParam], DurationParam.parse("30s"))
   protected val timeoutDuration: DurationParam = params.get("timeout_duration", classOf[DurationParam], DurationParam.parse("45m"))
 
   override def runTask(): TaskResult = {
