@@ -1,5 +1,7 @@
 # digdag-operator-emr_fleet
-[![Jitpack](https://jitpack.io/v/pro.civitaspo/digdag-operator-emr_fleet.svg)](https://jitpack.io/#pro.civitaspo/digdag-operator-emr_fleet) [![CircleCI](https://circleci.com/gh/civitaspo/digdag-operator-emr_fleet.svg?style=shield)](https://circleci.com/gh/civitaspo/digdag-operator-emr_fleet) [![Digdag](https://img.shields.io/badge/digdag-v0.9.27-brightgreen.svg)](https://github.com/treasure-data/digdag/releases/tag/v0.9.27)
+[![](https://jitpack.io/v/care0717/digdag-operator-emr_fleet.svg)](https://jitpack.io/#care0717/digdag-operator-emr_fleet) [![Digdag](https://img.shields.io/badge/digdag-v0.9.42-brightgreen.svg)](https://github.com/treasure-data/digdag/releases/tag/v0.9.42)
+
+**This is fork project from [civitaspo/digdag-operator-emr_fleet](https://github.com/civitaspo/digdag-operator-emr_fleet)**
 
 This operator is for operating a cluster with instance fleets on Amazon Elastic Map Reduce.
 
@@ -16,7 +18,7 @@ _export:
     repositories:
       - https://jitpack.io
     dependencies:
-      - pro.civitaspo:digdag-operator-emr_fleet:0.0.5
+      - com.github.care0717:digdag-operator-emr_fleet:0.0.5
   emr_fleet:
     auth_method: profile
 
@@ -184,7 +186,7 @@ Define the below options on properties (which is indicated by `-c`, `--config`).
 - **log_uri**: The location in Amazon S3 to write the log files of the job flow. If a value is not provided, logs are not created. (string, optional)
 - **additional_info**: A JSON string for selecting additional features. (string, optional)
 - **visible**: Whether the cluster is visible to all IAM users of the AWS account associated with the cluster. If this value is set to true, all IAM users of that AWS account can view and (if they have the proper policy permissions set) manage the cluster. If it is set to false, only the IAM user that created the cluster can view and manage it. (boolean, default: `true`)
-- **step_concurrency_level**: Specifies the number of steps that can be executed concurrently. The maximum value is 256. (integer, default: `1`)
+- **step_concurrency_level**: Specifies the number of steps that can be executed concurrently. This option is available for EMR versions 5.28 and later. The maximum value is 256. (integer, default: `1`)
 - **security_configuration**: The name of a security configuration to apply to the cluster. (string, optional)
 - **instance_profile**: Also called job flow role and EC2 role. An IAM role for an EMR cluster. The EC2 instances of the cluster assume this role. The default role is EMR_EC2_DefaultRole. In order to use the default role, you must have already created it using the CLI or console. (string, default: `EMR_EC2_DefaultRole`)
 - **service_role**: The IAM role that will be assumed by the Amazon EMR service to access AWS resources on your behalf. (string, default: `EMR_DefaultRole`)
@@ -273,7 +275,7 @@ Define the below options on properties (which is indicated by `-c`, `--config`).
 
 # Note
 
-- Only emr-5.10.0 or larger releases are supported.
+- Only emr-5.28.0 or larger releases are supported.
 - There is no compatibility against [`emr>` operator](https://docs.digdag.io/operators/emr.html) because of the maintainability.
 
 # Development
@@ -315,6 +317,7 @@ aws configure
 [Apache License 2.0](./LICENSE.txt)
 
 # Author
-
+## Original Author
 @civitaspo
-
+## Others
+@care0717

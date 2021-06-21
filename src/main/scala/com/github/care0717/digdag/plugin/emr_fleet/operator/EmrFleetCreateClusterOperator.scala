@@ -1,4 +1,4 @@
-package pro.civitaspo.digdag.plugin.emr_fleet.operator
+package com.github.care0717.digdag.plugin.emr_fleet.operator
 
 import java.net.URI
 import java.nio.charset.StandardCharsets.UTF_8

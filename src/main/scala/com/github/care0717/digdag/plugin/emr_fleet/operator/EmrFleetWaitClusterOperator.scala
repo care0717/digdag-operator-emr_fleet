@@ -1,4 +1,4 @@
-package pro.civitaspo.digdag.plugin.emr_fleet.operator
+package com.github.care0717.digdag.plugin.emr_fleet.operator
 
 import com.amazonaws.services.elasticmapreduce.model.{
   Cluster,
@@ -13,7 +13,7 @@ import com.google.common.collect.ImmutableList
 import io.digdag.client.config.{Config, ConfigKey}
 import io.digdag.spi.{OperatorContext, TaskResult, TemplateEngine}
 import io.digdag.util.DurationParam
-import pro.civitaspo.digdag.plugin.emr_fleet.wrapper.{NotRetryableException, ParamInGiveup, ParamInRetry, RetryableException, RetryExecutorWrapper}
+import com.github.care0717.digdag.plugin.emr_fleet.wrapper.{NotRetryableException, ParamInGiveup, ParamInRetry, RetryableException, RetryExecutorWrapper}
 
 import scala.collection.JavaConverters._
 
